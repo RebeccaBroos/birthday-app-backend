@@ -160,6 +160,22 @@ def get_users():
         print(f"Error fetching users: {e}")
         return jsonify({'success': False, 'error': 'Failed to fetch users'}), 500
 
+@app.route('/hello', methods=['POST'])
+def hello():
+    """Handle hello message from frontend and respond with greeting"""
+    try:
+        data = request.get_json()
+        message = data.get('message', '').strip()
+        
+        if message.lower() == 'hello':
+            return jsonify({'message': 'hello from backend'}), 200
+        else:
+            return jsonify({'message': 'hello from backend'}), 200
+    
+    except Exception as e:
+        print(f"Error in hello endpoint: {e}")
+        return jsonify({'error': 'Failed to process hello message'}), 500
+
 if __name__ == '__main__':
     # Run on all interfaces (0.0.0.0) to allow external connections
     app.run(host='0.0.0.0', port=5000, debug=False)
